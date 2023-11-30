@@ -4,6 +4,42 @@ const bcrypt = require('bcrpyt');
 const express = require('express');
 
 
+
+
+//create user
+router.post('/', async (req, res) => {
+    try {
+        //user register data
+        const { name, email, password } = req.body;
+
+        //verify this email is not already in use
+        const existingUser = await User.findOne({
+            where: { email },
+        });
+
+        if (existingUser) {
+            return res.status(400).json({ message: "Email in use"})
+        }
+
+        //hashing password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        //create user
+
+        const newUser = await User.create({
+            name, 
+            email,
+            password: hashedPassowrd,
+        });
+        //respond with new user
+        res.status(201).json(newUser);
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({message: 'Internal error'});
+    }
+})
+
+
 //login for API
 router.post('/login', async (req, res) => {
     try {
@@ -50,8 +86,6 @@ router.post('/logout', (req, res) => {
     }
 }
 );
-
-
 
 
 
