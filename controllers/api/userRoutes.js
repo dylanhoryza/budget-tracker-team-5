@@ -43,9 +43,13 @@ router.post('/login', async (req, res) => {
         if (!validPass) {
             return res.status(400).json({ message: 'Invalid email or Password' });
         }
+        req.session.save(() => {
+            req.session.user_id = user.id;
+            req.session.name = user.name;
+            req.session.logged_in = true;
         //successful login
         res.json({ message: 'Login successful' });
-
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Invalid Server' });
