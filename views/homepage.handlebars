@@ -1,0 +1,13 @@
+{{#if logged_in}}
+<div class="container">
+    <div class="homepage">
+        <!-- Homepage content will go here. SO anything additional like a saying (like how rocketmoney had), image anything like that to complete the pages. any examples? -->
+        <form action="/signup" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+{{/if}}
+
