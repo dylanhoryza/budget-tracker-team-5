@@ -23,3 +23,48 @@ nav a {
   margin: 0;
 }
 
+#monthly-income, #budget-goal {
+  width: 220px;
+  font-size: 15px;
+  margin-top: 5px;
+  
+}
+
+label {
+  padding-bottom: 5px;
+  padding-top: 15px;
+}
+
+#goals-btn {
+  margin-top: 10px;
+}
+.dollar-sign::before {
+  content: "$";
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+
+.dollar-sign input {
+  padding-left: 25px;
+}
+
+#categorySelect:hover {
+cursor: pointer;
+}
+
+.card-title {
+  text-align: center;
+  font-size: 24px;
+}
+
+#add-expense-btn {
+  margin-top: 15px;
+}
+
+.total-header {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
