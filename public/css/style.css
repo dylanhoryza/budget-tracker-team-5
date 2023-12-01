@@ -1,0 +1,24 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: rgb(123, 214, 123);
+  padding: 10px 20px;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.budget-header {
+  font-size: 30px;
+  margin: 0;
+}
