@@ -1,2 +1,42 @@
-name and value of name is category
-other
+[
+  {
+    "name": "Rent/Mortgage"
+  },
+  {
+    "name": "Car"
+  },
+  {
+    "name": "Utilities"
+  },
+  {
+    "name": "Internet"
+  },
+  {
+    "name": "Phone"
+  },
+  {
+    "name": "Car Insurance"
+  },
+  {
+    "name": "Gym Membership"
+  },
+  {
+    "name": "Groceries"
+  },
+  {
+    "name": "Gas"
+  },
+  {
+    "name": "Credit Cards"
+  },
+  {
+    "name": "Shopping"
+  },
+  {
+    "name": "Streaming Services"
+  },
+  {
+    "name": "Other"
+  }
+  
+]
