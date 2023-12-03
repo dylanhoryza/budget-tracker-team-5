@@ -1,3 +1,9 @@
+<div class="row">
+  <div class="col-auto">
+    <h2>Welcome, {{name}}!</h2>
+  </div>
+</div>
+
 <div class="container main-content mt-5">
   <div class="row">
     <div class="col-md-6">
@@ -39,45 +45,55 @@
         <div class="card-body">
           <h5 class="card-title">Expenses</h5>
           <div class="container" id="expense-container">
-            <div class="row" id="expense-row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="categorySelect"></label>
-                  <select
-                    class="form-control custom-select"
-                    id="categorySelect"
-                  >
-                    <option disabled selected>Select Category</option>
-                    {{#each categories}}
-                      <option value="{{this.id}}">{{this.name}}</option>
-                    {{/each}}
+            {{#if budgets.length}}
+              <div class="row expense-row" id="expense-row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="categorySelect"></label>
+                    <select
+                      class="form-control custom-select category-select2"
+                      id="categorySelect"
+                    >
+                      <option disabled selected>Select Category</option>
+                      {{#each categories}}
+                        <option
+                        class="category-select"
+                          id="category_id"
+                          value="{{this.id}}"
+                        >{{this.name}}</option>
+                      {{/each}}
 
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="costInput"></label>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">$</span>
-                    </div>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="costInput"
-                      placeholder="Enter cost"
-                    />
+                    </select>
                   </div>
                 </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="costInput"></label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control cost-input"
+                        id="costInput"
+                        placeholder="Enter cost"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-1 align-self-end">
+                  <button
+                    type="submit"
+                    class="btn btn-primary save-btn"
+                    id="save-btn"
+                  >+</button>
+                </div>
+                <div class="col-md-1 align-self-end">
+                  <button type="submit" class="btn btn-danger">-</button>
+                </div>
               </div>
-              <div class="col-md-1 align-self-end">
-                <button type="submit" class="btn btn-primary">+</button>
-              </div>
-              <div class="col-md-1 align-self-end">
-                <button type="submit" class="btn btn-danger">-</button>
-              </div>
-            </div>
+            {{/if}}
           </div>
 
           <div class="align-self-center text-center">

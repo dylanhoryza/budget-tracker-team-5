@@ -1,25 +1,25 @@
-const router = require('express').Router();
-const { Budget, User, Category } = require('../models');
-const withAuth = require('../utils/auth');
+const router = require("express").Router();
+const { Budget, User, Category } = require("../models");
+const withAuth = require("../utils/auth");
 
-router.get('/', async (req, res) => {
-  res.render('homepage');
+router.get("/", async (req, res) => {
+  res.render("homepage");
 });
 
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
     return;
   }
-  res.render('login');
+  res.render("login");
 });
 
-router.get('/signup', (req, res) => {
+router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
     return;
   }
-  res.render('signup');
+  res.render("signup");
 });
 
 // router.get('/dashboard', withAuth, async (req, res) => {
@@ -44,21 +44,23 @@ router.get('/signup', (req, res) => {
 //   res.render('dashboard');
 // });
 
-router.get('/dashboard', async (req, res) => {
+router.get("/dashboard", async (req, res) => {
   try {
     const budgetData = await Budget.findAll({
       include: [
         {
           model: User,
-          // attributes: ['name'],
+          attributes: ["name"],
         },
       ],
     });
     const categoryData = await Category.findAll();
-    const categories = categoryData.map((category) => category.get({ plain: true }));
+    const categories = categoryData.map((category) =>
+      category.get({ plain: true })
+    );
     const budgets = budgetData.map((budget) => budget.get({ plain: true }));
 
-    res.render('dashboard', {
+    res.render("dashboard", {
       budgets,
       categories,
       // logged_in: req.session.logged_in
@@ -68,8 +70,8 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-router.get('/logout', (req, res) => {
-  res.redirect('/');
+router.get("/logout", (req, res) => {
+  res.redirect("/");
 });
 
 module.exports = router;
