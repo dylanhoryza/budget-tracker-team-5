@@ -38,43 +38,48 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Expenses</h5>
+          <div class="container" id="expense-container">
+            <div class="row" id="expense-row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="categorySelect"></label>
+                  <select
+                    class="form-control custom-select"
+                    id="categorySelect"
+                  >
+                    <option disabled selected>Select Category</option>
+                    {{#each categories}}
+                      <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="categorySelect"></label>
-                <select class="form-control custom-select" id="categorySelect">
-                  <option disabled selected>Select Category</option>
-                  {{#each categories}}
-                    <option value="{{this.id}}">{{this.name}}</option>
-                  {{/each}}
-
-                </select>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="costInput"></label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="costInput"
-                    placeholder="Enter cost"
-                  />
+                  </select>
                 </div>
               </div>
-            </div>
-            <div class="col-md-1 align-self-end">
-              <button type="submit" class="btn btn-primary">+</button>
-            </div>
-            <div class="col-md-1 align-self-end">
-              <button type="submit" class="btn btn-danger">-</button>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="costInput"></label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="costInput"
+                      placeholder="Enter cost"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 align-self-end">
+                <button type="submit" class="btn btn-primary">+</button>
+              </div>
+              <div class="col-md-1 align-self-end">
+                <button type="submit" class="btn btn-danger">-</button>
+              </div>
             </div>
           </div>
+
           <div class="align-self-center text-center">
             <button
               type="submit"
@@ -90,3 +95,6 @@
 
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/js/dashboard.js"></script>
