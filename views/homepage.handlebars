@@ -1,13 +1,16 @@
 {{#if logged_in}}
 <div class="container">
     <div class="homepage">
-        <!-- Homepage content will go here. SO anything additional like a saying (like how rocketmoney had), image anything like that to complete the pages. any examples? -->
-        <form action="/signup" method="post">
-            <label for="email">Email:</label>
+        <div class="welcome-section">
+            <h2>Empower Your Financial Journey</h2>
+            <p>Unlock the potential of your budget with our intuitive expense management tools. Start managing your expenses effectively today!</p>
+            <img src="/images/budget-calculator.jpg" alt="Budget Calculator" class="budget-calculator-image">
+        </div>
+        <form action="/signup" method="post" class="signup-form">
+            <label for="email">Get started with your email:</label>
             <input type="email" id="email" name="email" required>
             <button type="submit">Sign Up</button>
         </form>
     </div>
 </div>
 {{/if}}
-
