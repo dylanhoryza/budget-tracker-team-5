@@ -3,7 +3,7 @@ let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
 document.querySelector(".total-header").textContent =
   `Total: $${totalExpense.toFixed(2)}`;
 
-  // Click event to generate new cloned row with Handlebars features
+// Click event to generate new cloned row with Handlebars features
 $(document).ready(function () {
   $("#add-expense-btn").click(function () {
     const originalRow = $(".expense-row").first().clone();
@@ -72,6 +72,40 @@ document.addEventListener("DOMContentLoaded", function () {
   const totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
   document.querySelector(".total-header").textContent =
     `Total: $${totalExpense.toFixed(2)}`;
+
+// Calculate remaining budget based on budget goal and total income
+const userInfo = getSavedUserInfoFromCookie();
+const monthlyIncome = parseFloat(userInfo.monthlyIncome) || 0;
+const savingsGoal = parseFloat(userInfo.savingsGoal) || 0;
+const remainingBudget = monthlyIncome - totalExpense;
+
+// Display a message if the user is over budget
+if (remainingBudget < 0) {
+  alert('Warning: You have exceeded your budget!');
+}
+
+// Create data for Chart.js
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Monthly Income', 'Total Expense', 'Remaining Budget'],
+    datasets: [{
+      label: 'Budget Overview',
+      backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)'],
+      borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 205, 86, 1)'],
+      borderWidth: 1,
+      data: [monthlyIncome, totalExpense, remainingBudget]
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
 });
 
 // Event listener for deleting expenses
