@@ -35,7 +35,7 @@ label {
   padding-top: 15px;
 }
 
-#goals-btn {
+#goals-btn, #update-btn {
   margin-top: 10px;
 }
 .dollar-sign::before {

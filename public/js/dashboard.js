@@ -143,6 +143,38 @@ const saveUserInfo = async (event) => {
 
 document.querySelector('#goals-form').addEventListener('submit', saveUserInfo);
 
+// event listener to update the userInfo
+const updateUserInfo = async () => {
+  const monthly_income = parseFloat(document.querySelector('#monthly-income').value);
+  const savings_goal = parseFloat(document.querySelector('#budget-goal').value);
+
+  if (!isNaN(monthly_income) && !isNaN(savings_goal)) {
+    try {
+      const response = await fetch('/api/info/', {
+        method: "PUT",
+        body: JSON.stringify({ monthly_income, savings_goal }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        // Update data in cookies after successful API call
+        saveUserInfoToCookie(monthly_income, savings_goal);
+        const monthlyIncomeInput = document.querySelector('#monthly-income');
+        const savingsGoalInput = document.querySelector('#budget-goal');
+
+        monthlyIncomeInput.value = monthly_income;
+        savingsGoalInput.value = savings_goal; // Update cookies here
+      } else {
+        // Handle error response
+        console.error("Failed to update user info");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+};
+document.querySelector('#update-btn').addEventListener('click', updateUserInfo);
+
 // event listener to load saved userInput 
 document.addEventListener('DOMContentLoaded', () => {
   const userInfo = getSavedUserInfoFromCookie();
