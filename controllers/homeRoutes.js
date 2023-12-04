@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Budget, User, Category, User_Info } = require("../models");
+const { Budget, User, Category, UserInfo } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -22,30 +22,13 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// router.get('/dashboard', withAuth, async (req, res) => {
-//   try {
-//     const userData = await User.findByPk(req.session.user_id, {
-//       attributes: { exclude: ['password'] },
-//       include: [{ model: Budget }],
-//     });
-//     const user = userData.get({ plain: true });
-//     console.log(user);
-//     res.render('dashboard', {
-//       ...user,
-//       logged_in: true,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-// Test route setup for styling, doesn't require login
-// router.get('/dashboard', async (req, res) => {
-//   res.render('dashboard');
-// });
-
-router.get("/dashboard", async (req, res) => {
+// Get route for dashboard page, renders all data
+router.get("/dashboard", withAuth, async (req, res) => {
   try {
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ["password"] },
+      include: [{ model: Budget }],
+    });
     const budgetData = await Budget.findAll({
       include: [
         {
@@ -58,12 +41,19 @@ router.get("/dashboard", async (req, res) => {
     const categories = categoryData.map((category) =>
       category.get({ plain: true })
     );
+    const userInfoData = await UserInfo.findAll({
+      include: [{ model: User }],
+    });
+    const userInfo = userInfoData.map((info) => info.get({ plain: true }));
     const budgets = budgetData.map((budget) => budget.get({ plain: true }));
-
+    const user = userData.get({ plain: true });
+    console.log(user);
     res.render("dashboard", {
+      ...user,
       budgets,
       categories,
-      // logged_in: req.session.logged_in
+      userInfo,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);

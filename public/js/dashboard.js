@@ -1,15 +1,17 @@
-let totalExpense = 0;
+// Get the total expense from local storage
+let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+document.querySelector(".total-header").textContent =
+  `Total: $${totalExpense.toFixed(2)}`;
 
+  // Click event to generate new cloned row with Handlebars features
 $(document).ready(function () {
-  // Event listener for adding expense rows
   $("#add-expense-btn").click(function () {
-    const originalRow = $(".expense-row").first().clone(); // Clone the first expense row
+    const originalRow = $(".expense-row").first().clone();
 
-    // Clear values in the cloned row if needed
-    originalRow.find('select').prop('selectedIndex', 0);
-    originalRow.find('input').val('');
+    originalRow.find("select").prop("selectedIndex", 0);
+    originalRow.find("input").val("");
 
-    $("#expense-container").append(originalRow); // Append the cloned row
+    $("#expense-container").append(originalRow);
   });
 
   // Event listener for saving expenses
@@ -29,10 +31,18 @@ $(document).ready(function () {
         });
 
         if (response.ok) {
-         
+          const existingExpenses =
+            JSON.parse(localStorage.getItem("expenses")) || [];
+
+          // Add the new expense to the existing expenses
+          existingExpenses.push({ category_id, cost });
+
+          // Save updated expenses to local storage
+          localStorage.setItem("expenses", JSON.stringify(existingExpenses));
           totalExpense += cost;
-        document.querySelector(".total-header").textContent =
-          `Total: $${totalExpense.toFixed(2)}`;
+          document.querySelector(".total-header").textContent =
+            `Total: $${totalExpense.toFixed(2)}`;
+          localStorage.setItem("totalExpense", totalExpense);
         } else {
           alert("Unable to save expense");
         }
@@ -44,13 +54,31 @@ $(document).ready(function () {
   });
 });
 
-$(document).ready(function () {
-  
+// On page load or when initializing the script
+document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve expenses from local storage
+  const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+  const expenseContainer = $("#expense-container");
 
-  // Event listener for deleting expenses
+  storedExpenses.forEach((expense) => {
+    const newRow = $(".expense-row").first().clone();
+
+    newRow.find(".category-select2").val(expense.category_id);
+    newRow.find(".cost-input").val(expense.cost);
+
+    expenseContainer.append(newRow);
+  });
+
+  const totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+  document.querySelector(".total-header").textContent =
+    `Total: $${totalExpense.toFixed(2)}`;
+});
+
+// Event listener for deleting expenses
+$(document).ready(function () {
   $(".card-body").on("click", ".delete-btn", async function () {
     const row = $(this).closest(".expense-row");
-    const budgetId = row.data("id"); 
+    const budgetId = row.data("id");
     const cost = parseFloat(row.find(".cost-input").val());
 
     try {
@@ -59,7 +87,7 @@ $(document).ready(function () {
       });
 
       if (response.ok) {
-        row.remove(); 
+        row.remove();
         totalExpense -= cost;
         document.querySelector(".total-header").textContent =
           `Total: $${totalExpense.toFixed(2)}`;
@@ -74,80 +102,62 @@ $(document).ready(function () {
 });
 
 
+// Function to save user Info as cookies
+const saveUserInfoToCookie = (monthlyIncome, savingsGoal) => {
+  document.cookie = `monthlyIncome=${monthlyIncome}`;
+  document.cookie = `savingsGoal=${savingsGoal}`;
+};
+// retrieve userInfo
+const getSavedUserInfoFromCookie = () => {
+  const cookies = document.cookie.split(';');
+  let userInfo = {};
 
-// dashboard.js
+  cookies.forEach(cookie => {
+    const [key, value] = cookie.trim().split('=');
+    userInfo[key] = value;
+  });
 
-// $(document).ready(function () {
-//   $("#add-expense-btn").click(function () {
-//     const originalRow = $("#expense-row");
-//     const newExpenseRow = originalRow.clone();
+  return userInfo;
+};
+// Event listener to save userInfo on click 
+const saveUserInfo = async (event) => {
+  event.preventDefault();
 
-//     // newExpenseRow.find('select').val('');
-//     newExpenseRow.find('input[type="text"]').val('');
-//     newExpenseRow.find('select').val('');
+  const monthly_income = parseFloat(document.querySelector('#monthly-income').value);
+  const savings_goal = parseFloat(document.querySelector('#budget-goal').value);
 
-//     $("#expense-container").append(newExpenseRow);
-//   });
-// });
-
-
-
-// const newBudget = async (event) => {
-//   event.preventDefault();
-
-//   const category_id = document.querySelector("#category_id").value;
-//   const cost = parseFloat(document.querySelector("#costInput").value);
-
-//   if (category_id && cost) {
-//     const response = await fetch(`/api/budget/`, {
-//       method: "POST",
-//       body: JSON.stringify({ category_id, cost }),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     if (response.ok) {
-//       totalExpense += cost;
-//       document.querySelector(".total-header").textContent =
-//         `Total: $${totalExpense.toFixed(2)}`;
-//       alert("Expense saved!");
-//     } else {
-//       alert("Unable to save expense");
-//     }
-//   }
-// };
-
-// const newBudget = async (event) => {
-//   event.preventDefault();
-
-//   // Select all expense rows
-//   const expenseRows = document.querySelectorAll(".expense-row");
-
-//   for (const row of expenseRows) {
-//     const category_id = row.querySelector(".category-select").value;
-//     const cost = parseFloat(row.querySelector(".cost-input").value);
-
-//     if (category_id && cost) {
-//       const response = await fetch(`/api/budget/`, {
-//         method: "POST",
-//         body: JSON.stringify({ category_id, cost }),
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
-//       if (response.ok) {
-//         totalExpense += cost;
-//         document.querySelector(".total-header").textContent =
-//           `Total: $${totalExpense.toFixed(2)}`;
-//         alert("Expense saved!");
-//       } else {
-//         alert("Unable to save expense");
-//       }
-//     }
-//   }
-// };
+  if (!isNaN(monthly_income) && !isNaN(savings_goal)) {
+    const response = await fetch('/api/info', {
+      method: "POST",
+      body: JSON.stringify({ monthly_income, savings_goal }),
+      headers: { "Content-Type": "application/json" },
+    });
 
 
+    if (response.ok) {
+      // Save data to cookies after successful API call
+      saveUserInfoToCookie(monthly_income, savings_goal);
+    }
+  }
+};
 
+document.querySelector('#goals-form').addEventListener('submit', saveUserInfo);
 
-// document.querySelector(".save-btn").addEventListener("click", newBudget);
+// event listener to load saved userInput 
+document.addEventListener('DOMContentLoaded', () => {
+  const userInfo = getSavedUserInfoFromCookie();
+
+  const monthlyIncomeInput = document.querySelector('#monthly-income');
+  const savingsGoalInput = document.querySelector('#budget-goal');
+
+  if (userInfo.monthlyIncome) {
+    monthlyIncomeInput.value = userInfo.monthlyIncome;
+  }
+
+  if (userInfo.savingsGoal) {
+    savingsGoalInput.value = userInfo.savingsGoal;
+  }
+  //variables to use for chart.js
+  //compare savingsGoalInput.value, monthlyIncomeInput.value, and totalExpense
+  console.log(savingsGoalInput.value)
+});

@@ -3,7 +3,7 @@ const { Budget } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // Create new budget, need to add withAuth
-router.post("/", async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   try {
     const newBudget = await Budget.create({
       ...req.body,
