@@ -37,4 +37,25 @@ router.get("/allbudgets", async (req, res) => {
   }
 });
 
+// delete route needs withAuth
+router.delete('/:budgetId', async (req, res) => {
+  try {
+    const budgetData = await Budget.destroy({
+      where: {
+        id: req.params.budgetId,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!budgetData) {
+      res.status(404).json({ message: 'No budget found with this id!' });
+      return;
+    }
+
+    res.status(200).json(budgetData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

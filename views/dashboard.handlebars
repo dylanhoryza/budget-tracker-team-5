@@ -48,7 +48,7 @@
             {{#if budgets.length}}
               <div class="row expense-row" id="expense-row">
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group budget-id">
                     <label for="categorySelect"></label>
                     <select
                       class="form-control custom-select category-select2"
@@ -90,7 +90,7 @@
                   >+</button>
                 </div>
                 <div class="col-md-1 align-self-end">
-                  <button type="submit" class="btn btn-danger">-</button>
+                  <button type="submit" class="btn btn-danger delete-btn" data-id="{{budgets.id}}">-</button>
                 </div>
               </div>
             {{/if}}
