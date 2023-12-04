@@ -3,7 +3,7 @@ const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 const express = require('express');
 
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
     try {
       const userData = await User.create({
         name: req.body.name,
@@ -28,7 +28,11 @@ router.post('/', async (req, res) => {
 
 //login for API
 router.post('/login', async (req, res) => {
+  console.log("********** User typed goes to backend:")
+  console.log({email:req.body.email, pass:req.body.password})
     try {
+      console.log("User typed goes to backend:")
+        console.log({email:req.body.email, pass:req.body.password})
         //finding user by email
         const user = await User.findOne({
             where: { email: req.body.email }
@@ -65,8 +69,7 @@ router.post('/logout', (req, res) => {
                 res.status(500).json({ message: 'Internal server error' });
             } else {
                 //clear cookies
-                res.clearCookie(//need to put our cookie name if specific?? 
-                )
+                res.clearCookie()
                 res.json({ message: 'Logout successful' });
             }
         });

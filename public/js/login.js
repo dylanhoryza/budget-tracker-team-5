@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         //  send the login data to the server for validation
-        fetch('/login', {
+        fetch('/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
