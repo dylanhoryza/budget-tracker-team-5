@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Budget } = require("../../models");
+const { Budget, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // Create new budget, need to add withAuth
@@ -57,5 +57,18 @@ router.delete('/:budgetId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+router.get('/userbudget/:user_id', async (req, res) => {
+  try {
+    const userBudetData = await User.findOne({
+      where: {id: req.session.user_id},
+      include: [Budget]
+    })
+    res.status(200).json(userBudetData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+})
 
 module.exports = router;
