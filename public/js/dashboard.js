@@ -161,6 +161,7 @@ const saveUserInfo = async (event) => {
     if (response.ok) {
       // Save data to cookies after successful API call
       saveUserInfoToCookie(monthly_income, savings_goal);
+      updateCharts();
     }
   }
 };
@@ -188,6 +189,7 @@ const updateUserInfo = async () => {
 
         monthlyIncomeInput.value = monthly_income;
         savingsGoalInput.value = savings_goal; // Update cookies here
+        updateCharts();
       } else {
         // Handle error response
         console.error("Failed to update user info");
