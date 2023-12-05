@@ -88,6 +88,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
   document.querySelector(".total-header").textContent =
     `Total: $${totalExpense.toFixed(2)}`;
+    fetch('/api/budget/userbudget/:user_id', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+    }).then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      throw new Error('this didnt work')
+    })
 });
 
 // Event listener for deleting expenses
@@ -235,7 +244,7 @@ function createOrUpdateDonutChart() {
     window.donutChart.data = donutChartData;
     window.donutChart.update();
   } else {
-    // Create new chart
+    //Create new chart
     window.donutChart = new Chart(donutChartCanvas, {
       type: "doughnut",
       data: donutChartData,
@@ -262,7 +271,7 @@ function createOrUpdateBarChart() {
     window.barChart.data = barChartData;
     window.barChart.update();
   } else {
-    // Create new chart
+    //Create new chart
     window.barChart = new Chart(barChartCanvas, {
       type: "bar",
       data: barChartData,
