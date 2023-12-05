@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             // Handle successful login
-            alert('Login successful! Redirecting...');
             window.location.href = '/dashboard';  // is /dashboard good? or do we need to be putting the path?
         })
         .catch(error => {
