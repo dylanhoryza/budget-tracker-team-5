@@ -207,6 +207,7 @@ function updateCharts() {
   monthlyIncome = parseFloat($("#monthly-income").val()) || monthlyIncome;
   savingsGoal = parseFloat($("#budget-goal").val()) || savingsGoal;
 
+  
   // Update or create the donut chart
   createOrUpdateDonutChart();
 
@@ -216,11 +217,12 @@ function updateCharts() {
 
 // Function to create or update the donut chart
 function createOrUpdateDonutChart() {
+  let amountSaved = monthlyIncome - totalExpense;
   const donutChartCanvas = document.getElementById("donut-chart");
   const donutChartData = {
     labels: ["Monthly Income", "Amount Saved", "Amount Spent"],
     datasets: [{
-      data: [monthlyIncome, savingsGoal, totalExpense],
+      data: [monthlyIncome, amountSaved, totalExpense],
       backgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
       hoverBackgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
     }],
@@ -243,10 +245,10 @@ function createOrUpdateDonutChart() {
 function createOrUpdateBarChart() {
   const barChartCanvas = document.getElementById("bar-chart");
   const barChartData = {
-    labels: ["Monthly Budget", "Total Expense"],
+    labels: ["Savings Goal", "Total Expense"],
     datasets: [{
       label: "Amount",
-      data: [monthlyIncome, totalExpense],
+      data: [savingsGoal, totalExpense],
       backgroundColor: ["#36A2EB", "#FF6384"],
       borderColor: ["#36A2EB", "#FF6384"],
       borderWidth: 1,
@@ -286,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (userInfo.savingsGoal) {
     savingsGoalInput.value = userInfo.savingsGoal;
   }
+  
   //variables to use for chart.js
   //compare savingsGoalInput.value, monthlyIncomeInput.value, and totalExpense
   console.log(savingsGoalInput.value)
