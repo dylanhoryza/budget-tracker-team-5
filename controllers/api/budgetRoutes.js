@@ -11,7 +11,7 @@ router.post("/", withAuth, async (req, res) => {
     });
     res.status(200).json(newBudget);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -23,7 +23,7 @@ router.put("/:budgetId", async (req, res) => {
     });
     res.json({ budgetData, message: "budget updated" });
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -33,7 +33,7 @@ router.get("/allbudgets", async (req, res) => {
     const budgetData = await Budget.findAll();
     res.json(budgetData);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -54,7 +54,7 @@ router.delete('/:budgetId', async (req, res) => {
 
     res.status(200).json(budgetData);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

@@ -11,3 +11,8 @@ function initializeDarkMode() {
 document.addEventListener("DOMContentLoaded", function () {
   initializeDarkMode();
 });
+
+
+
+
+//THIS CODE DOES NOT DO ANYTHING WILL DELETE LATER

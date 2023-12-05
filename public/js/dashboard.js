@@ -1,7 +1,14 @@
+let monthlyIncome;
 // Get the total expense from local storage
 let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
 document.querySelector(".total-header").textContent =
   `Total: $${totalExpense.toFixed(2)}`;
+  // Initialize variables for chart data
+monthlyIncome = parseFloat(localStorage.getItem("monthlyIncome")) || 0;
+let savingsGoal = parseFloat(localStorage.getItem("savingsGoal")) || 0;
+
+// Update the charts based on initial values
+updateCharts();
 
   // Click event to generate new cloned row with Handlebars features
 $(document).ready(function () {
@@ -14,6 +21,12 @@ $(document).ready(function () {
     $("#expense-container").append(originalRow);
   });
 
+// Initialize variables for chart data
+let monthlyIncome = parseFloat(localStorage.getItem("monthlyIncome")) || 0;
+let savingsGoal = parseFloat(localStorage.getItem("savingsGoal")) || 0;
+
+// Update the charts based on initial values
+updateCharts();
   // Event listener for saving expenses
   $(".card-body").on("click", ".save-btn", async function () {
     const row = $(this).closest(".expense-row");
@@ -51,6 +64,9 @@ $(document).ready(function () {
         alert("Error occurred while saving expense");
       }
     }
+      // Update charts after saving expenses
+  updateCharts();
+
   });
 });
 
@@ -79,18 +95,26 @@ $(document).ready(function () {
   $(".card-body").on("click", ".delete-btn", async function () {
     const row = $(this).closest(".expense-row");
     const budgetId = row.data("id");
+    console.log("Row:", row);
+    console.log("Budget ID:", budgetId);
     const cost = parseFloat(row.find(".cost-input").val());
 
     try {
       const response = await fetch(`/api/budget/${budgetId}`, {
         method: "DELETE",
       });
+console.log("Response:", response);
 
       if (response.ok) {
         row.remove();
         totalExpense -= cost;
         document.querySelector(".total-header").textContent =
           `Total: $${totalExpense.toFixed(2)}`;
+          // Remove the expense from local storage
+      const existingExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
+      const updatedExpenses = existingExpenses.filter(expense => expense.category_id !== budgetId);
+      localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+
       } else {
         alert("Unable to delete expense");
       }
@@ -174,7 +198,80 @@ const updateUserInfo = async () => {
   }
 };
 document.querySelector('#update-btn').addEventListener('click', updateUserInfo);
+  // Update charts after updating user info
+  updateCharts();
+  
+  // Function to update charts
+function updateCharts() {
+  // Update monthlyIncome and savingsGoal based on user input or saved data
+  monthlyIncome = parseFloat($("#monthly-income").val()) || monthlyIncome;
+  savingsGoal = parseFloat($("#budget-goal").val()) || savingsGoal;
 
+  // Update or create the donut chart
+  createOrUpdateDonutChart();
+
+  // Update or create the bar chart
+  createOrUpdateBarChart();
+}
+
+// Function to create or update the donut chart
+function createOrUpdateDonutChart() {
+  const donutChartCanvas = document.getElementById("donut-chart");
+  const donutChartData = {
+    labels: ["Monthly Income", "Amount Saved", "Amount Spent"],
+    datasets: [{
+      data: [monthlyIncome, savingsGoal, totalExpense],
+      backgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
+      hoverBackgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
+    }],
+  };
+
+  if (window.donutChart) {
+    // Update existing chart
+    window.donutChart.data = donutChartData;
+    window.donutChart.update();
+  } else {
+    // Create new chart
+    window.donutChart = new Chart(donutChartCanvas, {
+      type: "doughnut",
+      data: donutChartData,
+    });
+  }
+}
+
+// Function to create or update the bar chart
+function createOrUpdateBarChart() {
+  const barChartCanvas = document.getElementById("bar-chart");
+  const barChartData = {
+    labels: ["Monthly Budget", "Total Expense"],
+    datasets: [{
+      label: "Amount",
+      data: [monthlyIncome, totalExpense],
+      backgroundColor: ["#36A2EB", "#FF6384"],
+      borderColor: ["#36A2EB", "#FF6384"],
+      borderWidth: 1,
+    }],
+  };
+
+  if (window.barChart) {
+    // Update existing chart
+    window.barChart.data = barChartData;
+    window.barChart.update();
+  } else {
+    // Create new chart
+    window.barChart = new Chart(barChartCanvas, {
+      type: "bar",
+      data: barChartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+}
 // event listener to load saved userInput 
 document.addEventListener('DOMContentLoaded', () => {
   const userInfo = getSavedUserInfoFromCookie();
