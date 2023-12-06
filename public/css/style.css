@@ -89,7 +89,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 8px;
-  width: 100%;
+  width: 75%;
   text-align: center;
   justify-content: center;
   isolation: isolate;
@@ -154,24 +154,6 @@ footer {
 .form-group {
   background-color: rgb(30, 215, 96, 0.8);
   isolation: isolate;
-}
-#email,
-#password {
-  width: 50%;
-  padding: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-button {
-  background-color: #1DB954;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
 
 
+}
