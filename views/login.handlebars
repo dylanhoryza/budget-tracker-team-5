@@ -1,12 +1,13 @@
-  
-  
-  <h1>Login</h1>
-    
+ <div class="container">
+  <div class="login-card">
+    <h1 id="login-h1">Login To Continue Your Budgeting Journey!</h1>
+
     {{#if errorMessage}}
       <p style="color: red;">{{errorMessage}}</p>
     {{/if}}
 
     <form id="loginForm">
+      <div class="form-group">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br>
 
@@ -14,7 +15,14 @@
         <input type="password" id="password" name="password" required><br>
 
         <button type="submit">Login</button>
+      </div>
     </form>
+  </div>
+
+  <div class="additional-content">
+    <!--  additional content goes here, e.g., an image, quote, etc. -->
+  </div>
+</div>
     
     <script src="./js/login.js"></script>
  

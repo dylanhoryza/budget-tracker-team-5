@@ -86,12 +86,37 @@ body {
 
 #signup-section {
   background-color: rgb(30, 215, 96, 0.8);
-  display: flex;
-  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
   isolation: isolate;
 }
 
 
+#signup-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#signup-section button:hover {
+  background-color: #45a049;
+}
+#signup-section a {
+  color: #333;
+  text-decoration: none;
+  margin-top: 10px;
+  display: block;
+}
+
+#signup-section a:hover {
+  color: #4caf50;
+}
 .signupBTN {
   background-color: #1DB954;
   color: white;
@@ -100,7 +125,14 @@ body {
   border: none;
   cursor: pointer;
 }
-
+.form-group {
+  background: #fbfbfb;
+  border-radius: 8px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
+  height: 400px;
+  margin: 6rem auto 8.1rem auto;
+  width: 75%;
+}
 
 #quote-section {
   text-align: center;
@@ -111,3 +143,35 @@ body {
   text-align: center;
   padding: 20px;
 }
+footer {
+  display: flex;
+  justify-content: center;
+}
+#login-h1 {
+  display: flex;
+  justify-content: center;
+}
+.form-group {
+  background-color: rgb(30, 215, 96, 0.8);
+  isolation: isolate;
+}
+#email,
+#password {
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+button {
+  background-color: #1DB954;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
