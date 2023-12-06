@@ -1,12 +1,15 @@
-let monthlyIncome;
+// let monthlyIncome;
 // Get the total expense from local storage
-let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
-document.querySelector(".total-header").textContent =
-  `Total: $${totalExpense.toFixed(2)}`;
+// let totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
+// document.querySelector(".total-header").textContent =
+//   `Total: $${totalExpense.toFixed(2)}`;
   // Initialize variables for chart data
-monthlyIncome = parseFloat(localStorage.getItem("monthlyIncome")) || 0;
-let savingsGoal = parseFloat(localStorage.getItem("savingsGoal")) || 0;
-
+// monthlyIncome = parseFloat(localStorage.getItem("monthlyIncome")) || 0;
+// let savingsGoal = parseFloat(localStorage.getItem("savingsGoal")) || 0;
+let existingExpenses = [];
+let totalExpense;
+let monthlyIncome;
+let savingsGoal ;
 // Update the charts based on initial values
 updateCharts();
 
@@ -22,8 +25,7 @@ $(document).ready(function () {
   });
 
 // Initialize variables for chart data
-let monthlyIncome = parseFloat(localStorage.getItem("monthlyIncome")) || 0;
-let savingsGoal = parseFloat(localStorage.getItem("savingsGoal")) || 0;
+
 
 // Update the charts based on initial values
 updateCharts();
@@ -44,18 +46,14 @@ updateCharts();
         });
 
         if (response.ok) {
-          const existingExpenses =
-            JSON.parse(localStorage.getItem("expenses")) || [];
+
 
           // Add the new expense to the existing expenses
           existingExpenses.push({ category_id, cost });
-
-          // Save updated expenses to local storage
-          localStorage.setItem("expenses", JSON.stringify(existingExpenses));
           totalExpense += cost;
           document.querySelector(".total-header").textContent =
             `Total: $${totalExpense.toFixed(2)}`;
-          localStorage.setItem("totalExpense", totalExpense);
+          
         } else {
           alert("Unable to save expense");
         }
@@ -70,33 +68,38 @@ updateCharts();
   });
 });
 
+
 // On page load or when initializing the script
 document.addEventListener("DOMContentLoaded", function () {
-  // Retrieve expenses from local storage
-  const storedExpenses = JSON.parse(localStorage.getItem("expenses")) || [];
-  const expenseContainer = $("#expense-container");
-
-  storedExpenses.forEach((expense) => {
-    const newRow = $(".expense-row").first().clone();
-
-    newRow.find(".category-select2").val(expense.category_id);
-    newRow.find(".cost-input").val(expense.cost);
-
-    expenseContainer.append(newRow);
-  });
-
-  const totalExpense = parseFloat(localStorage.getItem("totalExpense")) || 0;
-  document.querySelector(".total-header").textContent =
-    `Total: $${totalExpense.toFixed(2)}`;
-    fetch('/api/budget/userbudget/:user_id', {
-      method: 'GET',
-      headers: {'Content-Type': 'application/json'},
-    }).then(res => {
+  // Retrieve expenses from the server for the user with :userid
+  fetch('/api/budget/userbudget/:userid', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(async (res) => {
       if (res.ok) {
-        return res.json();
+        console.info(res);
+        const userData = await res.json();
+
+        // Update relevant variables with fetched data
+        monthlyIncome = userData.monthlyIncome || 0;
+        savingsGoal = userData.savingsGoal || 0;
+        totalExpense = userData.totalExpense || 0;
+        existingExpenses = userData.expenses || [];
+
+        // Update elements on the page based on the fetched data
+        document.querySelector('.total-header').textContent = `Total: $${totalExpense.toFixed(2)}`;
+
+        // Call functions to update charts based on the new data
+        updateCharts();
+      } else {
+        throw new Error('Failed to fetch user budget data');
       }
-      throw new Error('this didnt work')
     })
+    .catch((error) => {
+      console.error('Error:', error);
+      // Handle errors here
+    });
 });
 
 // Event listener for deleting expenses
@@ -168,6 +171,16 @@ const saveUserInfo = async (event) => {
 
 
     if (response.ok) {
+      const data = await response.json(); // Assuming the server sends back the saved data
+      monthlyIncome = data.monthly_income; // Update global monthly income variable
+      savingsGoal = data.savings_goal; 
+      // Update input fields with the saved information
+      const monthlyIncomeInput = document.querySelector('#monthly-income');
+      const savingsGoalInput = document.querySelector('#budget-goal');
+    
+      monthlyIncomeInput.value = monthlyIncome; // Update monthly income input
+      savingsGoalInput.value = savingsGoal;// Update savings goal input
+    
       // Save data to cookies after successful API call
       saveUserInfoToCookie(monthly_income, savings_goal);
       updateCharts();

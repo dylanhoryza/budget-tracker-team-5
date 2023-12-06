@@ -14,12 +14,12 @@ UserInfo.init(
     monthly_income: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
-      unique: true,
+      unique: false,
     },
     savings_goal: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
-      unique: true,
+      unique: false,
     },
     user_id: {
       type: DataTypes.INTEGER,
