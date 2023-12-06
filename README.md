@@ -38,8 +38,9 @@ Budget Buddy is an innovative budget and expense management application designed
 - Create a `.env` file in the project root and add the following:
 
   ```env
-  PORT=3000
-  DATABASE_URL=mongodb://localhost:27017/your-database
+  DB_NAME="personalBudget_db"
+  DB_USER=""
+  DB_PASSWORD=""
 
 
 ## Usage
