@@ -1,62 +1,64 @@
 <div class="row">
   <div class="col-auto">
-    <h2>Welcome, {{name}}!</h2>
+    <h2 class="welcome-name">Welcome, {{name}}!</h2>
   </div>
 </div>
 
 <div class="container main-content mt-5">
   <div class="row">
     <div class="col-md-6">
-      <form id="goals-form">
-        <div class="form-group">
-          <label for="monthlyIncome"></label>
-          <div class="dollar-sign">
-            <input
-              type="text"
-              class="form-control"
-              id="monthly-income"
-              placeholder="Enter monthly income"
-            />
-          </div>
-
+ <div class="card">
+  <div class="card-body user-input-card">
+    <form id="goals-form">
+      <div class="form-group">
+        <div class="dollar-sign">
+          <input
+            type="text"
+            class="form-control"
+            id="monthly-income"
+            placeholder="Enter monthly income"
+          />
         </div>
-        <div class="form-group">
-          <label for="budgetGoal"></label>
-          <div class="dollar-sign">
-            <input
-              type="text"
-              class="form-control"
-              id="budget-goal"
-              placeholder="Enter savings goal"
-            />
-          </div>
-
+      </div>
+      <div class="form-group">
+        <div class="dollar-sign">
+          <input
+            type="text"
+            class="form-control"
+            id="budget-goal"
+            placeholder="Enter savings goal"
+          />
         </div>
-        <button
-          type="submit"
-          class="btn btn-primary"
-          id="goals-btn"
-        >Save</button>
-           <button
-          type="submit"
-          class="btn btn-primary"
-          id="update-btn"
-        >Update</button>
-      </form>
-      <div class="col-md-6">
+      </div>
+      <button
+        type="submit"
+        class="btn"
+        id="goals-btn"
+      >Save</button>
+      <button
+        type="submit"
+        class="btn"
+        id="update-btn"
+      >Update</button>
+    </form>
+    <div class="user-data-box">
       <h1 id="monthly-income-input">Monthly Income: $<span id="monthly-income-value"></span></h1>
       <h1 id="savings-goal-input">Savings Goal: $<span id="savings-goal-value"></span></h1>
+    </div>
   </div>
+</div>
+
+ 
    <div class="canvas-container">
-    <canvas id="donut-chart" width="50" height="50"></canvas>
-    <canvas id="bar-chart" width="50" height="50"></canvas>
+    <canvas id="donut-chart"></canvas>
+    <canvas id="bar-chart"></canvas>
    </div>
     
       </div>
   
     <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
+      <div class="card expense-box2">
+        <div class="card-body expense-box">
           <h5 class="card-title">Expenses</h5>
           <div class="container" id="expense-container">
             {{!-- {{#if budgets.length}} --}}
@@ -110,21 +112,22 @@
       <div class="budget-item">
         <span class="category">{{budget.category.name}}</span>
         <span class="cost">${{budget.cost}}</span>
-         <button class="delete-budget">delete</button>
+         <button class="delete-budget">-</button>
       </div>
      
     {{/each}}
   
 </div>
 
-       <div class="align-self-center text-center">
-        <div id="expense-details"></div>
-        <button type="button" id="add-expense-btn" class="btn btn-primary">Add expense</button>
-        </div>
+     
 
           <h6 class="total-header">Total: ${{totalExpense}}</h6>
         </div>
       {{/if}}
+        <div class="align-self-center text-center">
+        <div id="expense-details"></div>
+        <button type="button" id="add-expense-btn" class="btn">Add expense</button>
+        </div>
         </div>
     </div>
    </div>
