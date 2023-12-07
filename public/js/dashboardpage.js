@@ -68,6 +68,7 @@ async function postUserInfo() {
       if (response.ok) {
         document.getElementById("monthly-income-value").textContent = monthlyIncome;
         document.getElementById("savings-goal-value").textContent = savingsGoal;
+        updateCharts();
       }
     } catch (error) {
       console.error("Error:", error);
@@ -145,6 +146,7 @@ async function updateUserInfo() {
         document.getElementById('monthly-income-value').textContent = userData.monthly_income;
         document.getElementById('savings-goal-value').textContent = userData.savings_goal;
         console.log('success');
+        updateCharts();
       } else {
         console.error('Failed to update user info');
       }
@@ -200,6 +202,7 @@ async function postUserBudget() {
       console.log('Expense added successfully');
       
       await getUserBudget();
+      updateCharts();
 
     }
   } catch (error) {
@@ -328,7 +331,7 @@ function createOrUpdateBarChart() {
   const barChartData = {
     labels: ["Savings Goal", "Total Expense"],
     datasets: [{
-      label: "Amount", 
+      label: "Savings Goal", 
       data: [savingsGoal, totalExpense],
       backgroundColor: ["#36A2EB", "#FF6384"],
       borderColor: ["#36A2EB", "#FF6384"],

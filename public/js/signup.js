@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             // Handle successful login
-            alert('signup successful! Redirecting...');
+            
             window.location.href = '/dashboard';  
         })
         .catch(error => {
