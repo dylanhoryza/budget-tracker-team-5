@@ -38,7 +38,14 @@ label {
 
 #goals-btn, #update-btn {
   margin-top: 10px;
+  background-color: #167F3E;
+  color: #fff;
 }
+ #goals-btn:hover, #update-btn:hover {
+  transition: 0.15;
+  opacity: 0.9;
+ }
+
 .dollar-sign::before {
   content: "$";
   position: absolute;
@@ -58,16 +65,29 @@ cursor: pointer;
 .card-title {
   text-align: center;
   font-size: 24px;
+  color: #fff;
+  margin-bottom: 0;
+  
 }
 
 #add-expense-btn {
-  margin-top: 15px;
+  margin-top: 0px;
+  background-color: #167F3E;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+#add-expense-btn:hover {
+  transition: 0.15;
+  opacity: 0.9;
 }
 
 .total-header {
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 0;
+  color: #fff;
 }
 
 body {
@@ -78,9 +98,74 @@ body {
 }
 
 
+.welcome-name {
+  font-size: 24px;
+}
+
+#monthly-income-input, #monthly-income-value {
+font-size: 18px;
+margin-top: 15px;
+margin-bottom: 10px;
+color: #fff;
+}
+
+#savings-goal-input, #savings-goal-value {
+  font-size: 18px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+/* #monthly-income-value, #savings-goal-value {
+  color: #fff; 
+} */
+
+.user-input-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #1DB954;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+ /* border-radius: 8px; */
+  transition: box-shadow 0.3s ease-in-out;
+  isolation: isolate;
+}
+
+.user-input-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Adjust the shadow as needed */
+}
+
+@media (prefers-color-scheme: dark) {
+  
+
+}
+
+.user-data-box {
+  position: absolute;
+  top: 25px;
+  right: 20px;
+  border-radius: 8px;
+  background-color: #167F3E;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  margin-top: 10px;
+}
 
 
+.expense-box2 {
+  background-color: #1DB954;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  /* border-radius: 8px; */
+   transition: box-shadow 0.3s ease-in-out;
+   isolation: isolate;
+}
 
+.expense-box2:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); 
+}
+
+.expense-box {
+  margin-bottom: 0;
+}
 
 
 
@@ -393,30 +478,38 @@ button:hover {
 
 
 
-
-
-
+.delete-budget {
+margin-left: 20px;
+padding: 5px 10px;
+background-color: #167F3E;
+color: #fff;
+margin-top: 5px
+}
 
 
 
 /* Add some styling to the budget item elements */
 .budget-item {
-  display: flex; /* Use flexbox layout */
-  justify-content: space-between; /* Space elements apart */
-  border-bottom: 1px solid #ccc; /* Add a border for separation */
-  padding: 5px; /* Add padding for better spacing */
+  display: flex; 
+  justify-content: space-between; 
+  border-bottom: 1px solid #ccc; 
+  padding: 5px; 
 }
 
 /* Style for category */
 .category {
-  flex: 1; /* Expand to fill the available space */
-  /* Additional styling for category if needed */
+  flex: 1; 
+  color: #fff;
+  margin-top: 15px;
+  
 }
 
 /* Style for cost */
 .cost {
-  margin-left: 10px; /* Add margin to space cost from category */
-  /* Additional styling for cost if needed */
+  margin-left: 10px; 
+  color: #fff;
+  margin-top: 15px;
+  
 }
 footer {
   display: flex;
@@ -429,7 +522,21 @@ footer {
 
 
 .canvas-container {
-  width: 500px;
+  width: 315px;
+  margin-top: 20px;
+}
+
+
+
+.canvas-container {
+  display: flex;
+}
+
+#bar-chart {
+ margin-top: 100px;
+}
+
+
 
 #homeFoot{
   display: flex;
