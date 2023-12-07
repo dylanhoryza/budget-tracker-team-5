@@ -61,4 +61,4 @@ Please see code for licensing. MIT license.
 
 ## Features
 
-If your project has a lot of features, list them here.
+Budget Buddy includes multiple features. We will assist you int racking your expenses, savings, amounts saved, and your monthly income. This is not only demostrated through numbers on screen but also shown through easy to read and analyze graphs. 
