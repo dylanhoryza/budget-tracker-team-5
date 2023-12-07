@@ -169,11 +169,13 @@ async function getUserBudget() {
     if (response.ok) {
       const userData = await response.json();
       console.log(userData);
+      return userData.budgets || [0];
     }
   } catch (error) {
     console.error("Error:", error);
     
   }
+  return [];
 }
 
 
@@ -270,10 +272,88 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
+  // Update charts after updating user info
+  updateCharts();
+  
+  // Function to update charts
+async function updateCharts() {
+  // Update monthlyIncome and savingsGoal based on user input or saved data
+  await getUserInfo();
+  const userBudgetData = await getUserBudget();
+  let monthlyIncome = parseFloat(document.getElementById("monthly-income-value").textContent);
+  let savingsGoal = parseFloat(document.getElementById("savings-goal-value").textContent);
+  let totalExpense = 0;
+
+  // Calculate total expense based on fetched budget data
+  if (userBudgetData && userBudgetData.length > 0) {
+    totalExpense = userBudgetData.reduce((total, budget) => total + parseFloat(budget.cost), 0);
+  }
+  
+  // Update or create the donut chart
+  createOrUpdateDonutChart(monthlyIncome, totalExpense);
+
+  // Update or create the bar chart
+  createOrUpdateBarChart(savingsGoal, totalExpense);
 
 
+// Function to create or update the donut chart
+function createOrUpdateDonutChart() {
+  let amountSaved = monthlyIncome - totalExpense;
+  const donutChartCanvas = document.getElementById("donut-chart");
+  const donutChartData = {
+    labels: ["Monthly Income", "Amount Saved", "Amount Spent"],
+    datasets: [{
+      data: [monthlyIncome, amountSaved, totalExpense],
+      backgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
+      hoverBackgroundColor: ["#36A2EB", "#4CAF50", "#FF6384"],
+    }],
+  };
 
+  if (window.donutChart) {
+    // Update existing chart
+    window.donutChart.data = donutChartData;
+    window.donutChart.update();
+  } else {
+    //Create new chart
+    window.donutChart = new Chart(donutChartCanvas, {
+      type: "doughnut",
+      data: donutChartData,
+    });
+  }
+}
 
+// Function to create or update the bar chart
+function createOrUpdateBarChart() {
+  const barChartCanvas = document.getElementById("bar-chart");
+  const barChartData = {
+    labels: ["Savings Goal", "Total Expense"],
+    datasets: [{
+      label: "Amount",
+      data: [savingsGoal, totalExpense],
+      backgroundColor: ["#36A2EB", "#FF6384"],
+      borderColor: ["#36A2EB", "#FF6384"],
+      borderWidth: 1,
+    }],
+  };
 
-
+  if (window.barChart) {
+    // Update existing chart
+    window.barChart.data = barChartData;
+    window.barChart.update();
+  } else {
+    //Create new chart
+    window.barChart = new Chart(barChartCanvas, {
+      type: "bar",
+      data: barChartData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  }
+}
+}
 
