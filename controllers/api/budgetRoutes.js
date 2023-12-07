@@ -58,7 +58,7 @@ router.delete('/:budgetId', async (req, res) => {
   }
 });
 
-router.get('/userbudget/:user_id', async (req, res) => {
+router.get('/userbudget/', async (req, res) => {
   try {
     const userBudetData = await User.findOne({
       where: {id: req.session.user_id},

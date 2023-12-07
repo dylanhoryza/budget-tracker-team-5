@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function() {
   await getUserInfo();
+  await getUserBudget();
 
   const saveButton = document.getElementById('goals-btn');
   saveButton.addEventListener('click', async function(event) {
@@ -15,6 +16,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     await postUserInfo();
     await getUserInfo();
   });
+
+  const addExpenseButton = document.getElementById('add-expense-btn');
+  addExpenseButton.addEventListener('click', async function(event) {
+    event.preventDefault();
+    await postUserBudget();
+    await getUserBudget();
+  })
 });
 
 async function getUserId() {
@@ -148,6 +156,138 @@ async function updateUserInfo() {
     console.error('User info ID is null');
   }
 }
+
+// Get user budget 
+async function getUserBudget() {
+  try {
+    const response = await fetch("/api/budget/userbudget/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const userData = await response.json();
+      console.log(userData);
+      
+
+  
+
+      
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    // Handle errors here
+  }
+}
+
+
+// post new User budget
+async function postUserBudget() {
+  const categorySelect = document.querySelector('.category-select2');
+  const selectedOption = categorySelect.options[categorySelect.selectedIndex];
+  const category_id = selectedOption.dataset.categoryId;
+  const cost = parseFloat(document.querySelector('.cost-input').value);
+
+  try {
+    const response = await fetch(`/api/budget/`, {
+      method: "POST",
+      body: JSON.stringify({ category_id, cost }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+       // Add single expense item to the display
+      console.log('Expense added successfully');
+      await getUserBudget();
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error occurred while saving expense");
+  }
+}
+
+
+
+// post new User budget
+// async function postUserBudget() {
+//   const category_id = document.querySelector('.category-select').value;
+//   const cost = parseFloat(document.querySelector('.cost-input').value);
+  
+//   // const userId = await getUserId(); // Get the user info ID
+  
+//     try {
+//       const response = await fetch(`/api/budget/`, {
+//         method: "POST",
+//         body: JSON.stringify({ category_id, cost }),
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       });
+
+//       if (response.ok) {
+//         // document.querySelector('.category-display').textContent = category_id;
+//         // document.querySelector('.cost-display').textContent = cost;
+//         console.log('all good')
+//       }
+//     } catch (error) {
+//       console.error("Error:", error);
+//       alert("Error occurred while saving expense");
+//       console.error('User ID is null');
+//     }
+//   }
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   const addExpenseButton = document.getElementById('add-expense-btn');
+//   const expenseDetailsContainer = document.getElementById('expense-details');
+
+//   addExpenseButton.addEventListener('click', async function() {
+//     const categorySelect = document.querySelector('.category-select2');
+//     const costInput = parseFloat(document.querySelector('.cost-input').value);
+
+//     const selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
+//     const enteredCost = costInput;
+
+//     if (selectedCategory && enteredCost) {
+//       // Create a div element to display the category and cost
+//       const expenseDetails = document.createElement('div');
+//       expenseDetails.innerHTML = `<p>${selectedCategory}</p><p>$${enteredCost}</p>`;
+
+//       // Append the expense details to the container
+//       expenseDetailsContainer.appendChild(expenseDetails);
+
+//       // Clear inputs after displaying expense details
+//       // categorySelect.selectedIndex = 0;
+//       // costInput = '';
+
+//       // Send expense data to the backend
+//       try {
+//         const response = await fetch('/api/budget/', {
+//           method: 'POST',
+//           body: JSON.stringify({ category_id: selectedCategory, cost: enteredCost }),
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//         });
+
+//         if (response.ok) {
+//           const responseData = await response.json();
+//           console.log(responseData);
+//         }
+//       } catch (error) {
+//         console.error('Error:', error);
+//         // Handle error
+//       }
+//     } else {
+//       alert('Please select a category and enter cost.');
+//     }
+//   });
+// });
+
+
 
 
 
