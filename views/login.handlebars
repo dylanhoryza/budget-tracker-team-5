@@ -1,31 +1,29 @@
- <div class="container">
-  <div class="login-card">
-    <h1 id="login-h1">Login To Continue Your Budgeting Journey!</h1>
+<div class="login-container">
+    <div class="login-card">
+        <h1 id="loginHeader">Login To Continue Your Budgeting Journey!</h1>
 
-    {{#if errorMessage}}
-      <p style="color: red;">{{errorMessage}}</p>
-    {{/if}}
+        {{#if errorMessage}}
+            <p class="error-msg">{{errorMessage}}</p>
+        {{/if}}
 
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br>
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
 
-        <button type="submit">Login</button>
-      </div>
-    </form>
-  </div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
 
-  <div class="additional-content">
-    <!--  additional content goes here, e.g., an image, quote, etc. -->
-  </div>
+        <p class="signup-link">Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+
+
 </div>
-    
-    <script src="./js/login.js"></script>
- 
+<script src="./js/login.js"></script>
 
 
 
