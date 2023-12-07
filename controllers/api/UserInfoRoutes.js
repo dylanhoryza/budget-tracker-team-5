@@ -16,21 +16,6 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
-// Update userInfo by ID
-// router.put("/updateinfo/:user_id", async (req, res) => {
-//   try {
-//     const newUserInfo = await UserInfo.update(req.body,{
-//       where: { 
-//         id: req.session.user_id,
-//       },
-//       include: {model: User}
-//     });
-//     res.json({ newUserInfo, message: "budget updated" });
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
-
 router.put("/:userInfoId", async (req, res) => {
   try {
     const newUserInfo = await UserInfo.update(req.body, {
