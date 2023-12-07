@@ -50,7 +50,7 @@
         <div class="card-body">
           <h5 class="card-title">Expenses</h5>
           <div class="container" id="expense-container">
-            {{#if budgets.length}}
+            {{!-- {{#if budgets.length}} --}}
               <div class="row expense-row" id="expense-row">
                 <div class="col-md-6">
                   <div class="form-group budget-id">
@@ -60,10 +60,11 @@
                       id="categorySelect"
                     >
                       <option disabled selected>Select Category</option>
-                      {{#each categories}} 
+                      {{#each categories as |category|}} 
                         <option
-                        class="category-select"
+                        class="category-option"
                           id="category_id"
+                          data-category-id="{{this.id}}"
                           value="{{this.id}}"
                         >{{this.name}}</option>
                       {{/each}}
@@ -98,16 +99,27 @@
                   <button type="submit" class="btn btn-danger delete-btn" data-id="{{budgets.id}}">-</button>
                 </div>
               </div>
-            {{/if}}
+            {{!-- {{/if}} --}}
           </div>
+          {{!-- <p class="category-display"></p>
+          <p class="cost-display"></p> --}}
+    <div class="budget-display">
+  {{#if budgets.length}}
+    {{#each budgets as |budget|}}
+    
+      <div class="budget-item">
+        <span class="category">{{budget.category_id}}</span>
+        <span class="cost">${{budget.cost}}</span>
+      </div>
+    {{/each}}
+  {{/if}}
+</div>
 
-          <div class="align-self-center text-center">
-            <button
-              type="submit"
-              id="add-expense-btn"
-              class="btn btn-primary"
-            >Add expense</button>
-          </div>
+       <div class="align-self-center text-center">
+      <div id="expense-details"></div>
+      <button type="button" id="add-expense-btn" class="btn btn-primary">Add expense</button>
+      </div>
+
           <h6 class="total-header">Total:</h6>
         </div>
 

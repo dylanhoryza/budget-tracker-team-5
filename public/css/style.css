@@ -143,6 +143,78 @@ body {
   text-align: center;
   padding: 20px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add some styling to the budget item elements */
+.budget-item {
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Space elements apart */
+  border-bottom: 1px solid #ccc; /* Add a border for separation */
+  padding: 5px; /* Add padding for better spacing */
+}
+
+/* Style for category */
+.category {
+  flex: 1; /* Expand to fill the available space */
+  /* Additional styling for category if needed */
+}
+
+/* Style for cost */
+.cost {
+  margin-left: 10px; /* Add margin to space cost from category */
+  /* Additional styling for cost if needed */
+=======
 footer {
   display: flex;
   justify-content: center;
@@ -154,6 +226,7 @@ footer {
 .form-group {
   background-color: rgb(30, 215, 96, 0.8);
   isolation: isolate;
+
 
 
 }
