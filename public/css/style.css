@@ -1,9 +1,12 @@
+
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px;
   border-bottom: 2px solid #ccc;
+  
 }
 
 nav {
@@ -19,10 +22,22 @@ nav a {
   isolation: isolate;
 }
 
+nav a:hover, .budget-header:hover {
+  color: #167F3E;
+  transform: scale(1.1);
+}
+
 .budget-header {
   font-size: 30px;
+  font-weight: bold;
   margin: 0;
+  text-decoration: none;
+  color: #1DB954;
+  isolation: isolate;
+  transition: transform 0.3s ease;
 }
+
+
 
 #monthly-income, #budget-goal {
   width: 220px;
@@ -91,7 +106,7 @@ cursor: pointer;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
