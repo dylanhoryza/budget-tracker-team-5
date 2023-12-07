@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   })
 });
 
+// get User id
 async function getUserId() {
   try {
     const response = await fetch('/api/info/userinfo/', {
@@ -38,7 +39,7 @@ async function getUserId() {
     if (response.ok) {
       const userData = await response.json();
       console.log(userData);
-      return userData.user_id; // Assuming 'id' is the user info ID in the response
+      return userData.user_id; 
     } else {
       console.error('Failed to fetch user info ID');
       return null;
@@ -54,8 +55,6 @@ async function getUserId() {
 async function postUserInfo() {
   const monthlyIncome = parseFloat(document.querySelector("#monthly-income").value);
   const savingsGoal = parseFloat(document.querySelector("#budget-goal").value);
-  
-  // const userId = await getUserId(); // Get the user info ID
   
     try {
       const response = await fetch(`/api/info/`, {
@@ -97,10 +96,10 @@ async function getUserInfo() {
     }
   } catch (error) {
     console.error("Error:", error);
-    // Handle errors here
+    
   }
 }
-
+// get userInfo id
 async function getUserInfoId() {
   try {
     const response = await fetch('/api/info/userinfo/', {
@@ -114,7 +113,7 @@ async function getUserInfoId() {
     if (response.ok) {
       const userData = await response.json();
       console.log(userData);
-      return userData.id; // Assuming 'id' is the user info ID in the response
+      return userData.id; 
     } else {
       console.error('Failed to fetch user info ID');
       return null;
@@ -125,11 +124,11 @@ async function getUserInfoId() {
   }
 }
 
-// Usage:
+// Update monthly income and savings goal
 async function updateUserInfo() {
   const updatedMonthlyIncome = parseFloat(document.querySelector('#monthly-income').value);
   const updatedSavingsGoal = parseFloat(document.querySelector('#budget-goal').value);
-  const userInfoId = await getUserInfoId(); // Get the user info ID
+  const userInfoId = await getUserInfoId(); 
   
   if (userInfoId !== null) {
     try {
@@ -170,15 +169,10 @@ async function getUserBudget() {
     if (response.ok) {
       const userData = await response.json();
       console.log(userData);
-      
-
-  
-
-      
     }
   } catch (error) {
     console.error("Error:", error);
-    // Handle errors here
+    
   }
 }
 
@@ -200,13 +194,9 @@ async function postUserBudget() {
     });
 
     if (response.ok) {
-       // Add single expense item to the display
+       
       console.log('Expense added successfully');
-      const totalExpenseElement = document.querySelector('.total-header'); 
-      const currentTotal = parseFloat(totalExpenseElement.textContent);
-      const newTotal = currentTotal + cost;
-      totalExpenseElement.textContent = newTotal.toFixed(2); // Update the displayed total
-    
+      
       await getUserBudget();
 
     }

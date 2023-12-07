@@ -35,6 +35,11 @@ router.get("/dashboard", withAuth, async (req, res) => {
       include: [{ model: Category }],
       
     });
+
+    const totalExpense = budgetData.reduce((total, budget) => {
+      return total + parseFloat(budget.cost);
+    }, 0);
+    
     const categoryData = await Category.findAll();
     const categories = categoryData.map((category) =>
       category.get({ plain: true })
@@ -51,6 +56,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
       budgets,
       categories,
       userInfo,
+      totalExpense,
       logged_in: req.session.logged_in,
     });
   } catch (err) {
