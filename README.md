@@ -12,7 +12,10 @@ Budget Buddy is an innovative budget and expense management application designed
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
+- [Features](#features)
+
 ## Prerequisites
+
 - Node.js (v14.0.0 or higher)
 - npm (v6.0.0 or higher)
 
@@ -45,6 +48,17 @@ Budget Buddy is an innovative budget and expense management application designed
 
 ## Usage
 
-- Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
+- Open your browser and navigate to [http://localhost:3001](http://localhost:3000) to view the application.
 
 ## Credits
+
+Dylan Horyza - https://github.com/dylanhoryza
+Spencer Henegar - https://github.com/HenegarCodes
+
+## License
+
+Please see code for licensing. MIT license.
+
+## Features
+
+If your project has a lot of features, list them here.
