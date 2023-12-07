@@ -205,84 +205,73 @@ async function postUserBudget() {
     alert("Error occurred while saving expense");
   }
 }
+// Get individual budget ids
+async function getBudgetId() {
+  try {
+    const response = await fetch('/api/budget/userbudget/', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-// const totalExpense = budgets.reduce((total, budget) => total + budget.cost, 0);
-// res.render('dashboard', { budgets, totalExpense });
+    if (response.ok) {
+      const userBudget = await response.json();
+      const budgets = userBudget.budgets || []; 
 
-// post new User budget
-// async function postUserBudget() {
-//   const category_id = document.querySelector('.category-select').value;
-//   const cost = parseFloat(document.querySelector('.cost-input').value);
-  
-//   // const userId = await getUserId(); // Get the user info ID
-  
-//     try {
-//       const response = await fetch(`/api/budget/`, {
-//         method: "POST",
-//         body: JSON.stringify({ category_id, cost }),
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
+      
+      const budgetIds = budgets.map((budget) => budget.id);
+      console.log(budgetIds);
+      return budgetIds;
+    } else {
+      console.error('Failed to fetch user info ID');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+}
 
-//       if (response.ok) {
-//         // document.querySelector('.category-display').textContent = category_id;
-//         // document.querySelector('.cost-display').textContent = cost;
-//         console.log('all good')
-//       }
-//     } catch (error) {
-//       console.error("Error:", error);
-//       alert("Error occurred while saving expense");
-//       console.error('User ID is null');
-//     }
-//   }
+getBudgetId();
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   const addExpenseButton = document.getElementById('add-expense-btn');
-//   const expenseDetailsContainer = document.getElementById('expense-details');
+// delete route and click event to remove budget
+document.addEventListener('DOMContentLoaded', async () => {
+  const deleteButtons = document.querySelectorAll('.delete-budget');
 
-//   addExpenseButton.addEventListener('click', async function() {
-//     const categorySelect = document.querySelector('.category-select2');
-//     const costInput = parseFloat(document.querySelector('.cost-input').value);
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', async (event) => {
+      try {
+        const budgetIds = await getBudgetId();
+        
+        if (budgetIds && budgetIds.length > 0) {
+          const budgetId = budgetIds[0]; 
 
-//     const selectedCategory = categorySelect.options[categorySelect.selectedIndex].text;
-//     const enteredCost = costInput;
+          const response = await fetch(`/api/budget/${budgetId}`, {
+            method: 'DELETE',
+          });
 
-//     if (selectedCategory && enteredCost) {
-//       // Create a div element to display the category and cost
-//       const expenseDetails = document.createElement('div');
-//       expenseDetails.innerHTML = `<p>${selectedCategory}</p><p>$${enteredCost}</p>`;
+          if (response.ok) {
+            // Remove the deleted budget item from the UI
+            event.target.closest('.budget-item').remove();
+            
+          } else {
+            console.error('Failed to delete the budget item');
+          }
+        } else {
+          console.error('No budget IDs found');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error occurred while deleting the budget item');
+      }
+    });
+  });
+});
 
-//       // Append the expense details to the container
-//       expenseDetailsContainer.appendChild(expenseDetails);
 
-//       // Clear inputs after displaying expense details
-//       // categorySelect.selectedIndex = 0;
-//       // costInput = '';
 
-//       // Send expense data to the backend
-//       try {
-//         const response = await fetch('/api/budget/', {
-//           method: 'POST',
-//           body: JSON.stringify({ category_id: selectedCategory, cost: enteredCost }),
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//         });
-
-//         if (response.ok) {
-//           const responseData = await response.json();
-//           console.log(responseData);
-//         }
-//       } catch (error) {
-//         console.error('Error:', error);
-//         // Handle error
-//       }
-//     } else {
-//       alert('Please select a category and enter cost.');
-//     }
-//   });
-// });
 
 
 
