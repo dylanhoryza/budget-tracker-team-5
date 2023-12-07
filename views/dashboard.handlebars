@@ -43,6 +43,11 @@
           id="update-btn"
         >Update</button>
       </form>
+      <div class="col-md-6">
+      <h1 id="monthly-income-input">Monthly Income: $<span id="monthly-income-value"></span></h1>
+      <h1 id="savings-goal-input">Savings Goal: $<span id="savings-goal-value"></span></h1>
+    </div>
+
     </div>
   
     <div class="col-md-6">
@@ -99,10 +104,9 @@
                   <button type="submit" class="btn btn-danger delete-btn" data-id="{{budgets.id}}">-</button>
                 </div>
               </div>
-            {{!-- {{/if}} --}}
+          
           </div>
-          {{!-- <p class="category-display"></p>
-          <p class="cost-display"></p> --}}
+          
     <div class="budget-display">
   {{#if budgets.length}}
     {{#each budgets as |budget|}}
@@ -122,16 +126,13 @@
         <button type="button" id="add-expense-btn" class="btn btn-primary">Add expense</button>
         </div>
 
-          <h6 class="total-header">0.00</h6>
+          <h6 class="total-header">Total: ${{totalExpense}}</h6>
         </div>
       {{/if}}
         </div>
     </div>
    
-<div class="col-md-6">
-  <h1 id="monthly-income-input">Monthly Income: $<span id="monthly-income-value"></span></h1>
-  <h1 id="savings-goal-input">Savings Goal: $<span id="savings-goal-value"></span></h1>
-</div>
+
 
     </div>
     <canvas id="donut-chart" width="50" height="50"></canvas>
