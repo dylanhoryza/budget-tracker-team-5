@@ -426,6 +426,11 @@ footer {
 .col-md-6 {
   isolation: isolate;
 }
+
+
+.canvas-container {
+  width: 500px;
+
 #homeFoot{
   display: flex;
   justify-content: center;
@@ -436,4 +441,5 @@ footer {
   z-index: 1;
 isolation: isolate;
  
+
 }
