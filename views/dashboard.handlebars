@@ -108,22 +108,24 @@
     {{#each budgets as |budget|}}
     
       <div class="budget-item">
-        <span class="category">{{budget.category_id}}</span>
+        <span class="category">{{budget.category.name}}</span>
         <span class="cost">${{budget.cost}}</span>
+         <button>delete</button>
       </div>
+     
     {{/each}}
-  {{/if}}
+  
 </div>
 
        <div class="align-self-center text-center">
-      <div id="expense-details"></div>
-      <button type="button" id="add-expense-btn" class="btn btn-primary">Add expense</button>
-      </div>
-
-          <h6 class="total-header">Total:</h6>
+        <div id="expense-details"></div>
+        <button type="button" id="add-expense-btn" class="btn btn-primary">Add expense</button>
         </div>
 
-      </div>
+          <h6 class="total-header">0.00</h6>
+        </div>
+      {{/if}}
+        </div>
     </div>
    
 <div class="col-md-6">

@@ -202,7 +202,13 @@ async function postUserBudget() {
     if (response.ok) {
        // Add single expense item to the display
       console.log('Expense added successfully');
+      const totalExpenseElement = document.querySelector('.total-header'); 
+      const currentTotal = parseFloat(totalExpenseElement.textContent);
+      const newTotal = currentTotal + cost;
+      totalExpenseElement.textContent = newTotal.toFixed(2); // Update the displayed total
+    
       await getUserBudget();
+
     }
   } catch (error) {
     console.error("Error:", error);
@@ -210,7 +216,8 @@ async function postUserBudget() {
   }
 }
 
-
+// const totalExpense = budgets.reduce((total, budget) => total + budget.cost, 0);
+// res.render('dashboard', { budgets, totalExpense });
 
 // post new User budget
 // async function postUserBudget() {
