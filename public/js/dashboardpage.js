@@ -328,7 +328,7 @@ function createOrUpdateBarChart() {
   const barChartData = {
     labels: ["Savings Goal", "Total Expense"],
     datasets: [{
-      label: "Amount",
+      label: "Amount", 
       data: [savingsGoal, totalExpense],
       backgroundColor: ["#36A2EB", "#FF6384"],
       borderColor: ["#36A2EB", "#FF6384"],

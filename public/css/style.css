@@ -366,3 +366,7 @@ footer {
 .col-md-6 {
   isolation: isolate;
 }
+
+.canvas-container {
+  width: 500px;
+}
