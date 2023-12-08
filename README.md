@@ -48,7 +48,9 @@ Budget Buddy is an innovative budget and expense management application designed
 
 ## Usage
 
-(https://github.com/dylanhoryza/budget-tracker-team-5/assets/78831747/43ae81ad-6a14-41cb-8534-86ae4d1fd177)
+https://app-budget-buddy-17170e451f60.herokuapp.com/
+
+https://github.com/dylanhoryza/budget-tracker-team-5/assets/78831747/fc804b36-9816-4ea3-a9e5-97790169f54b
 
 
 
