@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     await updateUserInfo();
     await postUserInfo();
     await getUserInfo();
+    setTimeout(function() {
+      location.reload();
+    }, 500);
   });
 
   const addExpenseButton = document.getElementById('add-expense-btn');
@@ -22,6 +25,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     event.preventDefault();
     await postUserBudget();
     await getUserBudget();
+    setTimeout(function() {
+      location.reload();
+    }, 500);
   })
 });
 
@@ -257,6 +263,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           if (response.ok) {
             // Remove the deleted budget item from the UI
             event.target.closest('.budget-item').remove();
+            setTimeout(function() {
+              location.reload();
+            }, 500);
             
           } else {
             console.error('Failed to delete the budget item');
